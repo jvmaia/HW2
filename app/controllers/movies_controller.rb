@@ -1,13 +1,15 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
   def index
+    @selected_rating = params[:ratings] ? params[:ratings].keys : Movie.all_ratings
+    movies = Movie.where('rating in (:selected_rating)', :selected_rating=>@selected_rating)
     case params[:sort_by]
     when "title"
-      @movies = Movie.order(:title)
+      @movies = movies.order(:title)
     when "release_date"
-      @movies = Movie.order(:release_date)
+      @movies = movies.order(:release_date)
     else
-      @movies = Movie.all
+      @movies = movies
     end
   end
 
