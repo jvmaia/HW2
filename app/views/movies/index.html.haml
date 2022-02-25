@@ -5,15 +5,15 @@
   Include:
   - Movie.all_ratings.each do |rating|
     = rating
-    = check_box_tag "ratings[#{rating}]", "1", true
+    = check_box_tag "ratings[]", rating, @selected_rating.include?(rating)
   = submit_tag 'Refresh'
 
 %table#movies
   %thead
     %tr
-      %th= link_to "Movie Title", controller: "movies", action:"index", sort_by:"title", id:"title_header"
+      %th= link_to "Movie Title", controller: "movies", action:"index", sort_by:"title", id:"title_header", ratings:@selected_rating
       %th Rating
-      %th= link_to "Release date", controller: "movies", action:"index", sort_by:"release_date", id:"release_date_header"
+      %th= link_to "Release date", controller: "movies", action:"index", sort_by:"release_date", id:"release_date_header", ratings:@selected_rating
       %th More Info
   %tbody
     - @movies.each do |movie|

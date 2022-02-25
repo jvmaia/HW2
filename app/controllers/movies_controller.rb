@@ -1,7 +1,7 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
   def index
-    @selected_rating = params[:ratings] ? params[:ratings].keys : Movie.all_ratings
+    @selected_rating = params[:ratings] ? params[:ratings] : Movie.all_ratings
     movies = Movie.where('rating in (:selected_rating)', :selected_rating=>@selected_rating)
     case params[:sort_by]
     when "title"
